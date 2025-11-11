@@ -15,9 +15,10 @@ app.secret_key = os.environ.get("SECRET_KEY", "super_secret_key")
 def get_db_connection():
     return db.connect(
         user='root',
-        password='Somu#123',
-        host='localhost',
-        database='Bank'
+        password='lxfZBhpPmwhSjirNyORmdhlhkoaipNyU',
+        host='containers-us-west-123.railway.app',
+        database='railway'
+        port:12345
     )
 
 @app.before_request
