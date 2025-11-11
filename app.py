@@ -17,7 +17,7 @@ def get_db_connection():
         user='root',
         password='lxfZBhpPmwhSjirNyORmdhlhkoaipNyU',
         host='containers-us-west-123.railway.app',
-        database='railway'
+        database='railway',
         port:12345
     )
 
