@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}User Login | SecureBank{% endblock %}
+
+{% block content %}
+<section class="login-page">
+  <div class="login-card">
+
+    <h3 class="text-center mb-3" style="color:#016B61;">
+      <i class="fa-solid fa-user-circle me-2"></i>User Login
+    </h3>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+        <div style="background-color: aliceblue;">
+          <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert" style="color: red;">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+          </div>
+        </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="{{ url_for('user_login') }}" autocomplete="on">
+      <div class="mb-3">
+        <label for="account_id" class="form-label">Account Number</label>
+        <input type="text" id="account_id" name="account_id" class="form-control" placeholder="Enter your Account No." required autocomplete="username">
+      </div>
+
+      <div class="mb-3">
+        <label for="pin" class="form-label">PIN</label>
+        <input type="password" id="pin" name="pin" class="form-control" placeholder="Enter 4-digit PIN" maxlength="4" required autocomplete="current-password">
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100">Login</button>
+
+      <p class="text-center mt-3">
+        Don’t have an account? 
+        <a href="{{ url_for('create_account') }}" style="color:#016B61; text-decoration:none;">Create Now</a>
+      </p>
+    </form>
+  </div>
+</section>
+{% endblock %}

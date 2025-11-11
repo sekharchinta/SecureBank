@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}SecureBank | Home{% endblock %}
+
+{% block content %}
+<section class="banner">
+  <div class="container">
+    <h1 class="mb-3">Welcome to <span>SecureBank</span></h1>
+    <p class="lead mb-4 mytagline">
+      Your trusted digital banking partner <br> <span>secure</span>, <span>seamless</span>, and <span>smarter banking</span> for everyone.
+    </p>
+    <div>
+      <a href="{{ url_for('create_account') }}" class="btn btn-primary me-2">Create Account</a>
+      <a href="{{ url_for('user_login') }}" class="btn btn-primary me-2">User Login</a>
+      <a href="{{ url_for('admin_login') }}" class="btn btn-primary">Admin Login</a>
+    </div>
+  </div>
+</section>
+
+<section class="services-section py-5">
+  <div class="container">
+    <h2>Our Banking Services</h2>
+    <div class="row mt-4">
+      <div class="col-md-3 mb-4">
+        <div class="service-card">
+          <i class="fa-solid fa-wallet"></i>
+          <h5 class="mt-3">Savings Account</h5>
+          <p>High-interest savings accounts with instant online access and flexibility.</p>
+        </div>
+      </div>
+      <div class="col-md-3 mb-4">
+        <div class="service-card">
+          <i class="fa-solid fa-credit-card"></i>
+          <h5 class="mt-3">Instant Debit Card</h5>
+          <p>Activate your card instantly for secure, contactless transactions anytime.</p>
+        </div>
+      </div>
+      <div class="col-md-3 mb-4">
+        <div class="service-card">
+          <i class="fa-solid fa-hand-holding-dollar"></i>
+          <h5 class="mt-3">Loans & Credit</h5>
+          <p>Affordable personal, home, and business loans tailored for your needs.</p>
+        </div>
+      </div>
+      <div class="col-md-3 mb-4">
+        <div class="service-card">
+          <i class="fa-solid fa-shield-halved"></i>
+          <h5 class="mt-3">Secure Transactions</h5>
+          <p>Advanced encryption and fraud protection keep your data and funds safe.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-5" style="background: #ffffff;">
+  <div class="container text-center">
+    <h3 style="color:#016B61;">Why Choose SecureBank?</h3>
+    <p class="mt-3 text-muted">
+      Trusted by thousands of users, SecureBank ensures transparent transactions,
+      secure access, and exceptional support. Experience banking built for the future.
+    </p>
+    <a href="{{ url_for('create_account') }}" class="btn btn-primary mt-3">Get Started</a>
+  </div>
+</section>
+{% endblock %}

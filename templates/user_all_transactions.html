@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}All Transactions | SecureBank{% endblock %}
+{% block content %}
+
+<div class="container mt-5">
+  <div class="dashboard-header">
+    <h2>All Transactions</h2>
+  </div>
+
+  <div class="dashboard-card p-4">
+    <table class="table table-striped">
+      <thead>
+        <tr><th>Type</th><th>Amount (₹)</th><th>Date</th><th>Time</th></tr>
+      </thead>
+      <tbody>
+        {% for tx in transactions %}
+        <tr>
+          <td>{{ tx[0] }}</td>
+          <td>{{ tx[1] }}</td>
+          <td>{{ tx[2] }}</td>
+          <td>{{ tx[3] }}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="4" class="text-center text-muted">No transactions found</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <div class="text-center mt-3 mybackdashboard">
+      <a href="{{ url_for('user_dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

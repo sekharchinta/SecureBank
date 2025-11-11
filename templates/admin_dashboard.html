@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard | SecureBank{% endblock %}
+{% block content %}
+
+<div class="container mt-5">
+
+  <div class="dashboard-header">
+    <h2>Welcome, <span style="color: rgb(229, 134, 31);">Admin</span> </h2>
+    <p>Manage Users and Transactions</p>
+  </div>
+
+  <!-- Summary Cards -->
+  <div class="row g-4 mb-4">
+    <div class="col-md-4">
+      <div class="dashboard-card text-center p-4">
+        <h6>Total Users</h6>
+        <h3 class="text-primary">{{ total_users }}</h3>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="dashboard-card text-center p-4">
+        <h6>Total Transactions</h6>
+        <h3 class="text-success">{{ total_transactions }}</h3>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="dashboard-card text-center p-4">
+        <h6>Today’s Transactions</h6>
+        <h3 class="text-warning">{{ today_transactions }}</h3>
+      </div>
+    </div>
+  </div>
+
+  <!-- User Search Section -->
+  <div class="dashboard-card p-4 mb-4">
+    <h5><i class="fa-solid fa-user-search me-2"></i>Search User by Account Number</h5>
+    <form method="POST" class="d-flex mt-3" style="max-width: 400px;">
+      <input type="text" name="search_account" placeholder="Enter Account Number" class="form-control me-2" required>
+      <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+
+    {% if user_result %}
+    <div class="mt-4">
+      <h6>User Details:</h6>
+      <table class="table table-bordered table-striped">
+        <tr><th>Name</th><td>{{ user_result[0] }}</td></tr>
+        <tr><th>Account No</th><td>{{ user_result[1] }}</td></tr>
+        <tr><th>Type</th><td>{{ user_result[2] }}</td></tr>
+        <tr><th>Phone</th><td>{{ user_result[3] }}</td></tr>
+        <tr><th>Email</th><td>{{ user_result[4] }}</td></tr>
+        <tr><th>Balance</th><td>₹{{ '%.2f'|format(user_result[5]) }}</td></tr>
+      </table>
+    </div>
+    {% endif %}
+  </div>
+
+  <!-- Transactions by Date -->
+  <div class="dashboard-card p-4 mb-4">
+    <h5><i class="fa-solid fa-calendar-day me-2"></i>View Transactions by Date</h5>
+    <form method="POST" class="d-flex mt-3" style="max-width: 400px;">
+      <input type="date" name="search_date" class="form-control me-2" required>
+      <button type="submit" class="btn btn-success">Search</button>
+    </form>
+
+    {% if search_date %}
+    <div class="mt-4">
+      <h6>Transactions on {{ search_date }}</h6>
+      <table class="table table-striped mt-2">
+        <thead>
+          <tr>
+            <th>Account No</th>
+            <th>Type</th>
+            <th>Amount (₹)</th>
+            <th>Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for tx in transactions %}
+          <tr>
+            <td>{{ tx[0] }}</td>
+            <td>{{ tx[1] }}</td>
+            <td>{{ tx[2] }}</td>
+            <td>{{ tx[4] }}</td>
+          </tr>
+          {% else %}
+          <tr><td colspan="4" class="text-center text-muted">No transactions found</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% endif %}
+  </div>
+
+</div>
+
+<!-- View All Users Button -->
+  <div class="text-center mb-5">
+    <a href="{{ url_for('admin_all_users') }}" class="btn btn-outline-dark btn-lg shadow-sm">
+      <i class="fa-solid fa-users me-2"></i>View All Users
+    </a>
+  </div>
+{% endblock %}

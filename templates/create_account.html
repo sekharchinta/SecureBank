@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% block title %}Create Account - SecureBank{% endblock %}
+{% block content %}
+
+<div class="container my-5">
+  <div class="banner mb-4">
+    <h1>Create Your Account</h1>
+    <p style="color: white;">Join SecureBank and start managing your money smarter.</p>
+  </div>
+
+  <div class="card p-4 shadow-lg mx-auto" style="max-width: 650px;">
+    <div class="card-header text-center">
+      <h4><i class="fas fa-user-plus me-2"></i>Open New Account</h4>
+    </div>
+
+    <div class="card-body">
+      <form method="POST" autocomplete="off" id="create-account-form">
+        
+        <!-- Account Type Switch -->
+        <div class="mb-4 text-center" style="background-color:slategray; border-radius: 5px; padding: 5px; padding-top: 10px;">
+          <label class="form-label fw-bold">Select Account Type</label>
+          <div class="form-check form-check-inline mx-3">
+            <input class="form-check-input" type="radio" name="account_type" id="userAccount" value="user" checked>
+            <label class="form-check-label" for="userAccount">User Account</label>
+          </div>
+          <div class="form-check form-check-inline mx-3">
+            <input class="form-check-input" type="radio" name="account_type" id="adminAccount" value="admin">
+            <label class="form-check-label" for="adminAccount">Admin Account</label>
+          </div>
+        </div>
+
+        <!-- Shared Fields -->
+        <div class="mb-3">
+          <label class="form-label">Full Name</label>
+          <input type="text" class="form-control" name="name" placeholder="Enter your full name" required>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Mobile Number</label>
+          <input type="text" class="form-control" name="mobile" placeholder="Enter 10-digit mobile number" pattern="[6-9][0-9]{9}" required>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-control" name="email" placeholder="Enter your email address" required>
+        </div>
+
+        <!-- User Fields -->
+        <div id="user-fields">
+          <div class="mb-3 myoptions">
+            <label class="form-label">Account Type</label>
+            <select class="form-select" name="acc_type" required>
+              <option value="" selected disabled>Select account type</option>
+              <option value="savings">Savings</option>
+              <option value="current">Current</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Admin Fields -->
+        <div id="admin-fields" style="display: none;">
+          <div class="mb-3">
+            <label class="form-label">Employee ID</label>
+            <input type="text" class="form-control" name="emp_id" placeholder="Enter your Employee ID">
+          </div>
+        </div>
+
+        <!-- PIN Fields -->
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">PIN</label>
+            <input type="password" class="form-control" name="pin" maxlength="4" inputmode="numeric" pattern="[0-9]{4}" placeholder="4-digit PIN" autocomplete="new-password" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Confirm PIN</label>
+            <input type="password" class="form-control" name="confirm_pin" maxlength="4" inputmode="numeric" pattern="[0-9]{4}" placeholder="Confirm PIN" autocomplete="new-password" required>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100 mt-3">
+          <i class="fas fa-user-check me-2"></i>Create Account
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div class="text-center mt-4">
+    <p>Already have an account? 
+      <a href="{{ url_for('user_login') }}" class="text-decoration-none">Login here</a>
+    </p>
+  </div>
+</div>
+
+<script>
+  // Toggle visibility of admin vs user fields
+  const userRadio = document.getElementById("userAccount");
+  const adminRadio = document.getElementById("adminAccount");
+  const userFields = document.getElementById("user-fields");
+  const adminFields = document.getElementById("admin-fields");
+
+  function toggleFields() {
+    if (adminRadio.checked) {
+      userFields.style.display = "none";
+      adminFields.style.display = "block";
+    } else {
+      userFields.style.display = "block";
+      adminFields.style.display = "none";
+    }
+  }
+
+  userRadio.addEventListener("change", toggleFields);
+  adminRadio.addEventListener("change", toggleFields);
+</script>
+
+{% endblock %}

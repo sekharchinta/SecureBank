@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}User Dashboard | SecureBank{% endblock %}
+{% block content %}
+
+<div class="container mt-5">
+  <div class="dashboard-header">
+    <h2>Welcome, <span>{{ user_data[0] }}</span>👋</h2>
+    <p>Account No: <span>{{ user_data[1] }}</span> | Account Type: <span>{{ user_data[2] }}</span></p>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="dashboard-card p-4 text-center">
+        <h5>Balance</h5>
+        <h2 class="text-success mt-2">₹{{ '%.2f'|format(user_data[3]) }}</h2>
+      </div>
+    </div>
+
+    <div class="col-md-8">
+      <div class="dashboard-card p-4">
+        <h5>Perform Transaction</h5>
+        <form method="POST">
+          <div class="input-group mt-3">
+            <input type="number" name="amount" step="0.01" class="form-control" style="border-radius: 5px;" placeholder="Enter amount" required>
+            <button type="submit" name="action" value="credit" class="btn btn-success" style="border-radius: 5px; margin-left: 10px; margin-right: 5px;">Deposit</button>
+            <button type="submit" name="action" value="debit" class="btn btn-warning" style="border-radius: 5px;">Withdraw</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="dashboard-card p-4 mt-4">
+    <h5>Recent Transactions</h5>
+    <table class="table table-striped mt-3">
+      <thead>
+        <tr><th>Type</th><th>Amount (₹)</th><th>Date</th><th>Time</th></tr>
+      </thead>
+      <tbody>
+        {% for tx in transactions %}
+        <tr>
+          <td>{{ tx[0] }}</td>
+          <td>{{ tx[1] }}</td>
+          <td>{{ tx[2] }}</td>
+          <td>{{ tx[3] }}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="4" class="text-center text-muted">No transactions found</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <div class="text-end">
+      <a href="{{ url_for('user_all_transactions') }}" class="btn btn-info text-dark mt-2">View All Transactions</a>
+    </div>
+  </div>
+
+  <div class="text-center mt-4">
+    <a href="{{ url_for('change_pin') }}" class="btn btn-primary me-3" style="margin-bottom: 20px;"><i class="fa-solid fa-key me-1"></i>Change PIN</a>
+  </div>
+</div>
+
+{% endblock %}
