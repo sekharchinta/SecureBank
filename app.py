@@ -18,7 +18,7 @@ def get_db_connection():
         password='lxfZBhpPmwhSjirNyORmdhlhkoaipNyU',
         host='containers-us-west-123.railway.app',
         database='railway',
-        port:12345
+        port=12345
     )
 
 @app.before_request
